@@ -11,8 +11,8 @@ def parse_go_terms(go_string):
     for go_item in str(go_string).split(","):
         go_item = go_item.strip()
         if go_item.startswith('GO');
-            if '~' in go_item:
-                go_id, description = go_item.split('~', 1)
+            if ':' in go_item:
+                go_id, description = go_item.split(':', 1)
                 go_term.append((go_id.strip(), description.strip()))
             else:
                 go_terms.append(go_item.strip(), ")
@@ -32,7 +32,7 @@ def extract_go_annotations(input, output_dir):
 
     df=pd.read_csv(input, sep="\t", skiprows=data_start)
     columns=list(df.columns)
-    go_columns = [col for col in columns if 'GO' in col or 'go' in col]
+    go_columns = [col for col in columns if 'GOs' in col or 'gos' in col]
 
     if not go_columns:
         print("GO not found,screen GO name")
